@@ -15,10 +15,4 @@ Vagrant::Config.run do |config|
   config.vm.customize ["modifyvm", :id, "--pae", "on"]
 
   config.vm.share_folder "v-root", "/vagrant", "."
-
-  config.vm.provision :puppet do |puppet|
-    puppet.manifests_path = "puppet/manifests"
-    puppet.module_path    = "puppet/modules"
-    puppet.manifest_file  = "railsenv.pp"
-  end
 end
