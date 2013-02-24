@@ -1,4 +1,5 @@
-# based on this post: http://vagrantup.com/docs/getting-started/index.html
+# based on this post:
+# http://phaseshiftllc.com/articles/2012/03/19/setting-up-vagrant-with-rvm-and-mysql-for-rails-development.html
 stage { 'req-install': before => Stage['rvm-install'] }
 
 class requirements {
@@ -17,12 +18,9 @@ class installrvm {
   include rvm
   rvm::system_user { vagrant: ; }
 
-# if $rvm_installed == "true" {
-    rvm_system_ruby {
-      'ruby-1.9.3-p374':
-        ensure => 'present';
-    }
-#}
+  rvm_system_ruby {
+    'ruby-1.9.3-p374': ensure => 'present';
+  }
 }
 
 class doinstall {

@@ -1,0 +1,24 @@
+Vagrant::Config.run do |config|
+  config.vm.forward_port 1080, 1080   # mailcatcher
+  config.vm.forward_port 1234, 1234   # node.js
+  config.vm.forward_port 3000, 3000   # rails
+  config.vm.forward_port 3306, 3306   # mysql
+  config.vm.forward_port 4567, 4567   # sinatra
+  config.vm.forward_port 80, 8080     # apache/nginx
+  config.vm.forward_port 8888, 8888   # jasmine
+  config.vm.forward_port 9292, 9292   # rack
+  config.vm.forward_port 3790, 3790   # metasploit
+
+  config.vm.customize ["modifyvm", :id, "--memory", "256"]
+  config.vm.customize ["modifyvm", :id, "--cpuexecutioncap", "75"]
+  config.vm.customize ["modifyvm", :id, "--cpus", "1"]
+  config.vm.customize ["modifyvm", :id, "--pae", "on"]
+
+  config.vm.share_folder "v-root", "/vagrant", "."
+
+  config.vm.provision :puppet do |puppet|
+    puppet.manifests_path = "puppet/manifests"
+    puppet.module_path    = "puppet/modules"
+    puppet.manifest_file  = "railsenv.pp"
+  end
+end
